@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Delicious Recipes</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="logo">Delicious Recipes</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="about-page">
+    <div class="container">
+      <header class="page-header">
+        <h1>About Delicious Recipes</h1>
+      </header>
+
+      <section class="about-content">
+        <div class="about-text">
+          <h2>Our Story</h2>
+          <p>Welcome to Delicious Recipes, your go-to destination for home cooking inspiration. We believe that great food doesn't have to be complicated. Our collection features tried-and-true recipes that anyone can make, from quick weeknight dinners to impressive weekend projects.</p>
+
+          <h2>Our Mission</h2>
+          <p>We're on a mission to make home cooking accessible, enjoyable, and rewarding for everyone. Whether you're a beginner just learning your way around the kitchen or an experienced home chef looking for new ideas, you'll find something to love here.</p>
+
+          <h2>AI-Powered Assistance</h2>
+          <p>What makes us different? Our AI Chef Assistant! Powered by Claude, our chatbot can help you with:</p>
+          <ul>
+            <li>Finding recipes based on ingredients you have</li>
+            <li>Suggesting substitutions for dietary restrictions</li>
+            <li>Explaining cooking techniques</li>
+            <li>Answering any cooking questions you might have</li>
+          </ul>
+          <p>Just click the chat button in the corner to get started!</p>
+
+          <h2>Get in Touch</h2>
+          <p>Have a recipe suggestion or feedback? We'd love to hear from you. Connect with us and join our community of food lovers.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Delicious Recipes. Made with love for food lovers everywhere.</p>
+    </div>
+  </footer>
+
+  <!-- Chatbot Widget -->
+  <div id="chatbot-container" class="chatbot-container">
+    <div class="chatbot-header">
+      <span>AI Chef Assistant</span>
+      <button onclick="toggleChatbot()" class="chatbot-close">&times;</button>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages">
+      <div class="message bot-message">
+        <p>Hi! I'm your AI cooking assistant. Ask me anything about recipes, cooking techniques, or ingredient substitutions!</p>
+      </div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chat-input" placeholder="Ask me anything about cooking..." onkeypress="handleKeyPress(event)">
+      <button onclick="sendMessage()" id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <button class="chatbot-toggle" id="chatbot-toggle" onclick="toggleChatbot()">
+    <span class="chat-icon">💬</span>
+  </button>
+
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

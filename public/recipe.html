@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe - Delicious Recipes</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="logo">Delicious Recipes</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="recipes.html" class="active">Recipes</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="recipe-detail">
+    <div class="container">
+      <a href="recipes.html" class="back-link">&larr; Back to Recipes</a>
+
+      <article id="recipe-content">
+        <!-- Populated by JavaScript -->
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Delicious Recipes. Made with love for food lovers everywhere.</p>
+    </div>
+  </footer>
+
+  <!-- Chatbot Widget -->
+  <div id="chatbot-container" class="chatbot-container">
+    <div class="chatbot-header">
+      <span>AI Chef Assistant</span>
+      <button onclick="toggleChatbot()" class="chatbot-close">&times;</button>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages">
+      <div class="message bot-message">
+        <p>Hi! I'm your AI cooking assistant. Ask me anything about this recipe or cooking in general!</p>
+      </div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chat-input" placeholder="Ask me anything about cooking..." onkeypress="handleKeyPress(event)">
+      <button onclick="sendMessage()" id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <button class="chatbot-toggle" id="chatbot-toggle" onclick="toggleChatbot()">
+    <span class="chat-icon">💬</span>
+  </button>
+
+  <script src="js/recipes.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const recipeId = params.get('id');
+      const recipe = recipes.find(r => r.id === recipeId);
+
+      if (!recipe) {
+        document.getElementById('recipe-content').innerHTML = `
+          <h1>Recipe Not Found</h1>
+          <p>Sorry, we couldn't find that recipe. <a href="recipes.html">Browse all recipes</a></p>
+        `;
+        return;
+      }
+
+      document.title = `${recipe.title} - Delicious Recipes`;
+
+      document.getElementById('recipe-content').innerHTML = `
+        <header class="recipe-header">
+          <h1>${recipe.title}</h1>
+          <p class="recipe-description">${recipe.description}</p>
+          <div class="recipe-meta">
+            <span class="meta-item"><strong>Prep:</strong> ${recipe.prepTime}</span>
+            <span class="meta-item"><strong>Cook:</strong> ${recipe.cookTime}</span>
+            <span class="meta-item"><strong>Servings:</strong> ${recipe.servings}</span>
+            <span class="meta-item"><strong>Difficulty:</strong> ${recipe.difficulty}</span>
+          </div>
+          <div class="recipe-tags">
+            ${recipe.categories.map(cat => `<span class="tag">${cat}</span>`).join('')}
+          </div>
+        </header>
+
+        <div class="recipe-image-large">
+          <div class="placeholder-image">${recipe.emoji}</div>
+        </div>
+
+        <div class="recipe-body">
+          <section class="ingredients-section">
+            <h2>Ingredients</h2>
+            <ul class="ingredients-list">
+              ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+            </ul>
+          </section>
+
+          <section class="instructions-section">
+            <h2>Instructions</h2>
+            <ol class="instructions-list">
+              ${recipe.instructions.map(step => `<li>${step}</li>`).join('')}
+            </ol>
+          </section>
+
+          ${recipe.tips ? `
+          <section class="tips-section">
+            <h2>Chef's Tips</h2>
+            <ul class="tips-list">
+              ${recipe.tips.map(tip => `<li>${tip}</li>`).join('')}
+            </ul>
+          </section>
+          ` : ''}
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>

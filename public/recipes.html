@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Recipes - Delicious Recipes</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="logo">Delicious Recipes</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="recipes.html" class="active">Recipes</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="recipes-page">
+    <div class="container">
+      <header class="page-header">
+        <h1>All Recipes</h1>
+        <p>Find your next favorite dish</p>
+      </header>
+
+      <div class="filters">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Search recipes..." oninput="filterRecipes()">
+        </div>
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-category="all" onclick="setCategory('all')">All</button>
+          <button class="filter-btn" data-category="breakfast" onclick="setCategory('breakfast')">Breakfast</button>
+          <button class="filter-btn" data-category="lunch" onclick="setCategory('lunch')">Lunch</button>
+          <button class="filter-btn" data-category="dinner" onclick="setCategory('dinner')">Dinner</button>
+          <button class="filter-btn" data-category="dessert" onclick="setCategory('dessert')">Desserts</button>
+          <button class="filter-btn" data-category="vegetarian" onclick="setCategory('vegetarian')">Vegetarian</button>
+          <button class="filter-btn" data-category="quick" onclick="setCategory('quick')">Quick & Easy</button>
+        </div>
+      </div>
+
+      <div class="recipe-grid" id="recipe-list">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Delicious Recipes. Made with love for food lovers everywhere.</p>
+    </div>
+  </footer>
+
+  <!-- Chatbot Widget -->
+  <div id="chatbot-container" class="chatbot-container">
+    <div class="chatbot-header">
+      <span>AI Chef Assistant</span>
+      <button onclick="toggleChatbot()" class="chatbot-close">&times;</button>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages">
+      <div class="message bot-message">
+        <p>Hi! I'm your AI cooking assistant. Ask me anything about recipes, cooking techniques, or ingredient substitutions!</p>
+      </div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chat-input" placeholder="Ask me anything about cooking..." onkeypress="handleKeyPress(event)">
+      <button onclick="sendMessage()" id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <button class="chatbot-toggle" id="chatbot-toggle" onclick="toggleChatbot()">
+    <span class="chat-icon">💬</span>
+  </button>
+
+  <script src="js/recipes.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script>
+    let currentCategory = 'all';
+
+    function setCategory(category) {
+      currentCategory = category;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.category === category);
+      });
+      filterRecipes();
+    }
+
+    function filterRecipes() {
+      const searchTerm = document.getElementById('search-input').value.toLowerCase();
+      const container = document.getElementById('recipe-list');
+
+      let filtered = recipes;
+
+      if (currentCategory !== 'all') {
+        filtered = filtered.filter(r => r.categories.includes(currentCategory));
+      }
+
+      if (searchTerm) {
+        filtered = filtered.filter(r =>
+          r.title.toLowerCase().includes(searchTerm) ||
+          r.description.toLowerCase().includes(searchTerm) ||
+          r.ingredients.some(i => i.toLowerCase().includes(searchTerm))
+        );
+      }
+
+      container.innerHTML = filtered.map(recipe => createRecipeCard(recipe)).join('');
+    }
+
+    // Check for category in URL
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const category = params.get('category');
+      if (category) {
+        setCategory(category);
+      } else {
+        filterRecipes();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delicious Recipes - Home Cooking Made Easy</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="logo">Delicious Recipes</a>
+      <ul class="nav-links">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Discover Amazing Recipes</h1>
+      <p>From quick weeknight dinners to impressive weekend feasts</p>
+      <a href="recipes.html" class="btn btn-primary">Browse Recipes</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="categories">
+      <div class="container">
+        <h2>Explore Categories</h2>
+        <div class="category-grid">
+          <a href="recipes.html?category=breakfast" class="category-card">
+            <div class="category-icon">🍳</div>
+            <h3>Breakfast</h3>
+          </a>
+          <a href="recipes.html?category=lunch" class="category-card">
+            <div class="category-icon">🥗</div>
+            <h3>Lunch</h3>
+          </a>
+          <a href="recipes.html?category=dinner" class="category-card">
+            <div class="category-icon">🍝</div>
+            <h3>Dinner</h3>
+          </a>
+          <a href="recipes.html?category=dessert" class="category-card">
+            <div class="category-icon">🍰</div>
+            <h3>Desserts</h3>
+          </a>
+          <a href="recipes.html?category=vegetarian" class="category-card">
+            <div class="category-icon">🥬</div>
+            <h3>Vegetarian</h3>
+          </a>
+          <a href="recipes.html?category=quick" class="category-card">
+            <div class="category-icon">⚡</div>
+            <h3>Quick & Easy</h3>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured">
+      <div class="container">
+        <h2>Featured Recipes</h2>
+        <div class="recipe-grid" id="featured-recipes">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <h2>Need Cooking Help?</h2>
+        <p>Our AI assistant can answer your cooking questions, suggest recipes based on ingredients you have, and more!</p>
+        <button class="btn btn-secondary" onclick="toggleChatbot()">Chat with our AI Chef</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Delicious Recipes. Made with love for food lovers everywhere.</p>
+    </div>
+  </footer>
+
+  <!-- Chatbot Widget -->
+  <div id="chatbot-container" class="chatbot-container">
+    <div class="chatbot-header">
+      <span>AI Chef Assistant</span>
+      <button onclick="toggleChatbot()" class="chatbot-close">&times;</button>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages">
+      <div class="message bot-message">
+        <p>Hi! I'm your AI cooking assistant. Ask me anything about recipes, cooking techniques, or ingredient substitutions!</p>
+      </div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chat-input" placeholder="Ask me anything about cooking..." onkeypress="handleKeyPress(event)">
+      <button onclick="sendMessage()" id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <button class="chatbot-toggle" id="chatbot-toggle" onclick="toggleChatbot()">
+    <span class="chat-icon">💬</span>
+  </button>
+
+  <script src="js/recipes.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
